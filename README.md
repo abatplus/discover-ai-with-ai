@@ -49,19 +49,19 @@ Alternatively, open Claude Code in the VS Code sidebar and type: `Read start.md 
 
 | # | Session | Duration | Type |
 |---|---------|----------|------|
-| 0 | [Setup](sessions/00-setup/) | 5 min | Core |
-| 1 | [Let AI Do It](sessions/01-let-ai-do-it/) | 10 min | Core |
-| 2 | [Context is King](sessions/02-context-is-king/) | 15 min | Core |
-| 3 | [Thinking with AI](sessions/03-thinking-with-ai/) | 20 min | Core |
-| 4 | [Plan and Execute](sessions/04-plan-and-execute/) | 25 min | Core |
-| 5 | [Research with AI](sessions/05-research/) | 15 min | Optional |
-| 6 | [Systematic Debugging](sessions/06-debugging/) | 20 min | Optional |
-| 7 | [Cross-Project Learning](sessions/07-cross-project/) | 15 min | Optional |
-| 8 | [Documentation Without Pain](sessions/08-documentation/) | 15 min | Optional |
-| 9 | [Logs & Error Analysis](sessions/09-logs-and-errors/) | 15 min | Optional |
-| 10 | [Git & PR Workflows](sessions/10-git-and-prs/) | 15 min | Optional |
-| 11 | [Into Your Real Project](sessions/11-real-project/) | 20 min | Optional |
-| 12 | [Feedback](sessions/12-feedback/) | 10 min | Wrap-up |
+| 0 | Setup | 5 min | Core |
+| 1 | Let AI Do It | 10 min | Core |
+| 2 | Context is King | 15 min | Core |
+| 3 | Thinking with AI | 20 min | Core |
+| 4 | Plan and Execute | 25 min | Core |
+| 5 | Research with AI | 15 min | Optional |
+| 6 | Systematic Debugging | 20 min | Optional |
+| 7 | Cross-Project Learning | 15 min | Optional |
+| 8 | Documentation Without Pain | 15 min | Optional |
+| 9 | Logs & Error Analysis | 15 min | Optional |
+| 10 | Git & PR Workflows | 15 min | Optional |
+| 11 | Into Your Real Project | 20 min | Optional |
+| 12 | Feedback | 10 min | Wrap-up |
 
 ---
 <sub>We still write code. We just stopped writing it alone.<br>Crafted by [<img src="https://beyond-bits.de/favicons/favicon-16x16.png" width="12" height="12" alt="" align="absmiddle"> beyond-bits.de](https://beyond-bits.de)</sub>

@@ -58,71 +58,100 @@ For **TypeScript**:
 2. If the build fails: analyze the error, fix it, build again
 3. Repeat until everything is green
 
-### Step 4: Adapt session files for Copilot
+### Step 4: Generate the sessions
 
-The session README files already exist under `sessions/`. They are written for Claude Code. **Adapt all session READMEs** by replacing the Claude-specific references with their Copilot equivalents:
+Generate a `README.md` for each session listed below under `sessions/<folder>/`. Use the session template and the session descriptions to create full, engaging session content. Generate all sessions in the user's chosen language. Use parallel tool calls or sub-agents to generate efficiently.
 
-| Find (Claude) | Replace with (Copilot) |
+Also generate the feedback interview prompt as `sessions/12-feedback/feedback-prompt.md` (see session 12 description).
+
+#### Session template
+
+Every session README must follow this structure:
+
+```markdown
+# Session {number} – {title}
+
+> **Practical tip:** {one-liner that captures the session's core insight}
+
+> **Important:** Start a fresh Copilot Chat for this one (Cmd+Shift+P → "Chat: Clear"). A new context keeps Copilot focused.
+
+**Goal:** {what the user will experience or learn}
+
+**Demo:**
+
+> **Prompt** – copy the following into Copilot Chat:
+\```
+{the main prompt – multiline, clear, copy-pasteable}
+\```
+
+{brief explanation of what happens and what to watch for}
+
+**Your turn:** {a hands-on exercise that lets the user apply the concept themselves}
+
+**Tips:**
+- {2-3 practical tips}
+
+**What you learned:**
+- {3 key takeaways}
+
+---
+
+**Next up:** Open the next session → [{next-session-folder}/README.md](../{next-session-folder}/README.md)
+```
+
+**Prompt style rules (IMPORTANT):**
+- Prompts must sound **natural and conversational** – like something a developer would actually type. NOT like a requirements document or spec.
+- Keep prompts **short and direct**. No numbered lists of requirements, no "Anforderungen:" headers, no bullet-point specs inside prompts.
+- **Never mention Superpowers internals in prompts.** Things like TDD, committing after each step, review points, the reproduce→hypothesize→verify→fix process – these happen automatically when using slash commands. The user just invokes the command and describes the task. That's it.
+- Use `[placeholders in brackets]` when the user needs to fill in their own values (e.g. project paths).
+- Always refer to the AI as "Copilot", never "Claude".
+- Use `.github/copilot-instructions.md` instead of `CLAUDE.md` for the project context file.
+
+**Copilot-specific slash commands** (these replace the `/superpowers:*` commands from Claude Code):
+
+| Superpowers skill | Copilot slash command |
 |---|---|
-| `Claude Code` | `Copilot Agent Mode` |
-| `Claude` (when referring to the AI) | `Copilot` |
-| `CLAUDE.md` | `.github/copilot-instructions.md` |
-| `Start a fresh Claude Code session` | `Start a fresh Copilot Chat (Cmd+Shift+P → "Chat: Clear")` |
-| `copy the following into Claude Code` | `copy the following into Copilot Chat` |
 | `/superpowers:brainstorm` | `/brainstorm` |
 | `/superpowers:write-plan` | `/write-plan` |
 | `/superpowers:execute-plan` | `/execute-plan` |
 | `/superpowers:systematic-debugging` | `/investigate` |
 
-Additionally, adapt **Session 00 – Setup** specifically:
-- Replace the "What is Claude actually?" intro with "What is Copilot Agent Mode?" – explain that they know Copilot as autocomplete, but Agent Mode turns it into an autonomous working partner that can read files, write code, and run terminal commands.
-- Replace the Superpowers installation instructions with:
-  1. Open a terminal in the project directory
-  2. Run: `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash`
-  3. Open VS Code Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → "Developer: Reload Window"
-  4. Skills are now available as slash commands in Copilot Chat (e.g. `/brainstorm`, `/write-plan`, `/investigate`)
-- Add a step to verify Agent Mode is active: open Copilot Chat (`Ctrl+Cmd+I` / `Ctrl+Alt+I`), check the mode dropdown at the top shows **Agent**.
+**Variations from template:**
+- Session 0 has no "Your turn" – it's pure setup. It starts with a "What is Copilot Agent Mode?" intro that **must** include the colleague metaphor exactly like this: Imagine you get a new colleague – speaks every programming language, available 24/7, never annoyed when you ask the same question three times. But this colleague has a quirk: **no long-term memory.** Every conversation starts from zero. What you discussed yesterday? Forgotten. That's why context matters – and that's why we start every session fresh. Then explain: they know Copilot as autocomplete, but Agent Mode turns it into this autonomous colleague that can read files, write code, and run terminal commands. Includes Superpowers installation and Agent Mode verification.
+- Session 4 has two demos (plan + execute).
+- Session 6 has two demos (plant bug + find bug in new chat).
+- Session 11 has no demo prompt – it's a checklist for the user's real project. Includes Superpowers installation for the new project and a tip about `.prompt.md` files.
+- Session 12 has no demo – it points to the feedback-prompt.md file.
+- Sessions 5-11 end with a "What's next?" section offering the LEARNING-PATH overview and a shortcut to the feedback session.
 
-Also adapt **Session 11 – Into Your Real Project** checklist:
-- Replace `CLAUDE.md` with `.github/copilot-instructions.md`
-- Replace `/superpowers:brainstorm` with `/brainstorm`
-- Replace `/superpowers:write-plan` with `/write-plan`
-- Add: "Install Superpowers: `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash`"
-- Add tip: "Create `.prompt.md` files under `.github/prompts/` for frequently used prompts – they become slash commands"
+#### Session descriptions
 
-Use parallel tool calls or sub-agents to adapt all files efficiently.
+| # | Folder | Title | Type | ~Min | Description |
+|---|--------|-------|------|------|-------------|
+| 0 | `00-setup` | Setup | Core | 5 | Intro "What is Copilot Agent Mode?" – they know Copilot as autocomplete, but Agent Mode is an autonomous partner that reads files, writes code, runs terminal commands. **Verify Agent Mode:** open Copilot Chat (`Ctrl+Cmd+I` / `Ctrl+Alt+I`), check the mode dropdown shows **Agent**. Verify the generated project builds and tests pass. **Install Superpowers:** Open a terminal in the project directory, run `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash`, then VS Code Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → "Developer: Reload Window". Skills are now available as slash commands in Copilot Chat (e.g. `/brainstorm`, `/write-plan`, `/investigate`). |
+| 1 | `01-let-ai-do-it` | Let AI Do It | Core | 10 | First real task: add a `priority` field (Enum: LOW, MEDIUM, HIGH) to the Task entity. The prompt should be natural and short – just say what you want, Copilot figures out the rest (endpoints, tests, build). User watches Copilot work across files. Key insight: describe WHAT, not HOW. |
+| 2 | `02-context-is-king` | Context is King | Core | 15 | Demo 1: Create `.github/copilot-instructions.md` – let Copilot derive project conventions from existing code. Explain this is Copilot's equivalent of a project context file that gets loaded automatically. Demo 2: Create `docs/concept-task-categories.md` – a concept doc for categorizing tasks (Bug, Feature, Documentation) with data model and API impact. Key insight: context files aren't just for code – also for notes, ideas, decisions. |
+| 3 | `03-thinking-with-ai` | Thinking with AI | Core | 20 | Use `/brainstorm` to brainstorm a filtering and sorting feature (filter by status/priority, sort by fields). Copilot asks questions instead of jumping to code. Key insight: best code starts with good questions. |
+| 4 | `04-plan-and-execute` | Plan and Execute | Core | 25 | Demo 1: `/write-plan` – create implementation plan from brainstorming result. Review and adjust the plan. Demo 2: `/execute-plan` – just invoke and let Superpowers handle TDD, commits, and review points automatically. Key insight: planning prevents dead ends. |
+| 5 | `05-research` | Research with AI | Optional | 15 | Compare three logging libraries for the project's language. Web search, decision matrix (simplicity, performance, community, configurability), recommendation. Key insight: Copilot as research assistant saves hours. |
+| 6 | `06-debugging` | Systematic Debugging | Optional | 20 | Demo 1: Have Copilot plant a subtle bug (off-by-one, wrong status transition) that makes a test fail – don't tell the user where. Demo 2: Clear Chat and start fresh – just invoke `/investigate` and say the tests are failing. Superpowers handles the structured debugging process automatically. |
+| 7 | `07-cross-project` | Cross-Project Learning | Optional | 15 | Look at error handling in `[path to another project on your machine]` (use bracket placeholder – the user fills in their own path). Transfer that pattern to the Task API. Copilot understands patterns across projects and languages. |
+| 8 | `08-documentation` | Documentation Without Pain | Optional | 15 | Generate a Confluence article (Wiki Markup) documenting the Task API from recent changes. Save as `docs/confluence-task-api.txt`. Also mention ADRs, release notes, OpenAPI as options. Key insight: describe WHAT to document, Copilot writes it. |
+| 9 | `09-logs-and-errors` | Logs & Error Analysis | Optional | 15 | Start the Task API, send requests, show logs, analyze patterns/warnings. Also works with stack traces, `docker logs`, `kubectl logs`. Key insight: stop Googling stack traces. |
+| 10 | `10-git-and-prs` | Git & PR Workflows | Optional | 15 | Analyze git diff/log, write commit messages, create PR descriptions with summary/changes/test plan. Key insight: Copilot writes better commit messages than most devs at 5 PM on a Friday. |
+| 11 | `11-real-project` | Into Your Real Project | Optional | 20 | No demo – checklist: open Copilot in real project. **Install Superpowers first:** `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash` + reload window. Then: create `.github/copilot-instructions.md`, create context files, brainstorm with `/brainstorm`, plan with `/write-plan`, execute with `/execute-plan`. Tip: create `.prompt.md` files under `.github/prompts/` for frequently used prompts – they become slash commands. Short prompts per step, no Superpowers internals. Transition from lab to daily work. |
+| 12 | `12-feedback` | Feedback | Wrap-up | 10 | Points user to `feedback-prompt.md`. The prompt file instructs Copilot to conduct a structured interview (one question at a time): best moment, what didn't work, missing topics, difficulty level, daily use intention. After all answers: summarize as Markdown, save as `sessions/12-feedback/feedback.md`, ask for name/initials, create branch `feedback/<username>`, commit only feedback.md, push. |
 
-### Step 5: Translate if needed
-
-If the user chose a language other than English: translate ALL adapted session README files and the feedback-prompt.md to the chosen language. Use parallel tool calls or sub-agents.
-
-### Step 6: Generate LEARNING-PATH.md
+### Step 5: Generate LEARNING-PATH.md
 
 Create a `LEARNING-PATH.md` in the project root with:
 - Title "Discover AI with AI (Copilot Edition)"
 - One sentence: What is this learning path?
 - Prerequisite: VS Code with GitHub Copilot (Agent Mode)
-- Learning path overview as table:
-
-| # | Session | Duration | Type |
-|---|---------|----------|------|
-| 0 | Setup | 5 min | Core |
-| 1 | Let AI Do It | 10 min | Core |
-| 2 | Context is King | 15 min | Core |
-| 3 | Thinking with AI | 20 min | Core |
-| 4 | Plan and Execute | 25 min | Core |
-| 5 | Research with AI | 15 min | Optional |
-| 6 | Systematic Debugging | 20 min | Optional |
-| 7 | Cross-Project Learning | 15 min | Optional |
-| 8 | Documentation Without Pain | 15 min | Optional |
-| 9 | Logs & Error Analysis | 15 min | Optional |
-| 10 | Git & PR Workflows | 15 min | Optional |
-| 11 | Into Your Real Project | 20 min | Optional |
-| 12 | Feedback | 10 min | Wrap-up |
-
+- Learning path overview as table (use session data from above)
 - Note: "Start with Session 0 and work through the core path. Optional sessions can be done in any order. We'd love your feedback in Session 12."
 
-If a language other than English was chosen: generate the LEARNING-PATH.md in that language too.
+Generate in the user's chosen language.
 
 ## Wrap-up
 
