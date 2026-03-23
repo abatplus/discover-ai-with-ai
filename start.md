@@ -28,7 +28,21 @@ What programming language do you work with?
 
 ### Step 3: Generate the micro-project
 
-Create a minimal REST API project in the chosen language. The project must be **small but fully functional**.
+Create a minimal REST API project in the chosen language **inside a subdirectory** of the workspace root (e.g. `task-api/` for Java/TypeScript/Go, or `TaskApi/` for C#). The project must be **small but fully functional**.
+
+**⚠️ CRITICAL – Directory structure:**
+```
+workspace-root/          ← this is where Claude Code was started
+├── task-api/            ← the generated project lives HERE (subdirectory)
+│   ├── src/ / handlers/ / ...
+│   └── ...
+├── sessions/            ← generated in Step 4, at the ROOT
+│   ├── 00-setup/
+│   └── ...
+├── LEARNING-PATH.md     ← generated in Step 5, at the ROOT
+└── CLAUDE.md            ← created during sessions, at the ROOT
+```
+**Sessions, LEARNING-PATH.md, and CLAUDE.md must ALWAYS be at the workspace root – NEVER inside the project subdirectory.** After generating the project, always switch back to the workspace root for all subsequent steps.
 
 **The project contains:**
 - An entity `Task` with fields: `id` (auto-generated), `title` (String), `status` (Enum: OPEN, IN_PROGRESS, DONE)
@@ -54,15 +68,17 @@ For **TypeScript**:
 - `tsconfig.json` with strict mode
 
 **IMPORTANT:** After generating:
-1. Build the project (`mvn verify` / `dotnet build && dotnet test` / `npm install && npm test`)
+1. Build the project (`mvn verify` / `dotnet build && dotnet test` / `npm install && npm test`) – run the build command **inside the project subdirectory**
 2. If the build fails: analyze the error, fix it, build again
 3. Repeat until everything is green
 
 ### Step 4: Generate the sessions
 
-Generate a `README.md` for each session listed below under `sessions/<folder>/`. Use the session template and the session descriptions to create full, engaging session content. Generate all sessions in the user's chosen language. Use parallel tool calls or sub-agents to generate efficiently.
+Generate a `README.md` for each session listed below under `sessions/<folder>/` **at the workspace root** (NOT inside the project subdirectory). Use the session template and the session descriptions to create full, engaging session content. Generate all sessions in the user's chosen language. Use parallel tool calls or sub-agents to generate efficiently.
 
 Also generate the feedback interview prompt as `sessions/12-feedback/feedback-prompt.md` (see session 12 description).
+
+**⚠️ Verify:** The sessions directory must be a sibling of the project directory, not inside it. Example: if the project is at `task-api/`, sessions go to `sessions/` (not `task-api/sessions/`).
 
 #### Session template
 
@@ -121,7 +137,7 @@ Every session README must follow this structure:
 |---|--------|-------|------|------|-------------|
 | 0 | `00-setup` | Setup | Core | 5 | Intro "What is Claude actually?" (AI colleague metaphor). Verify the generated project builds and tests pass. Install Superpowers plugin: `/plugin marketplace add obra/superpowers-marketplace`, then `/plugin install superpowers@superpowers-marketplace`. |
 | 1 | `01-let-ai-do-it` | Let AI Do It | Core | 10 | First real task: add a `priority` field (Enum: LOW, MEDIUM, HIGH) to the Task entity. The prompt should be natural and short – just say what you want, Claude figures out the rest (endpoints, tests, build). User watches Claude work across files. Key insight: describe WHAT, not HOW. |
-| 2 | `02-context-is-king` | Context is King | Core | 15 | Demo 1: Create `CLAUDE.md` – let Claude derive project conventions from existing code. Demo 2: Create `docs/concept-task-categories.md` – a concept doc for categorizing tasks (Bug, Feature, Documentation) with data model and API impact. Key insight: context files aren't just for code – also for notes, ideas, decisions. |
+| 2 | `02-context-is-king` | Context is King | Core | 15 | Demo 1: Create `CLAUDE.md` **at the workspace root** (NOT inside the project subdirectory) – let Claude derive project conventions from existing code. Demo 2: Create `docs/concept-task-categories.md` at the workspace root – a concept doc for categorizing tasks (Bug, Feature, Documentation) with data model and API impact. Key insight: context files aren't just for code – also for notes, ideas, decisions. |
 | 3 | `03-thinking-with-ai` | Thinking with AI | Core | 20 | Use `/superpowers:brainstorm` to brainstorm a filtering and sorting feature (filter by status/priority, sort by fields). Claude asks questions instead of jumping to code. Key insight: best code starts with good questions. |
 | 4 | `04-plan-and-execute` | Plan and Execute | Core | 25 | Demo 1: `/superpowers:write-plan` – create implementation plan from brainstorming result. Review and adjust the plan. Demo 2: `/superpowers:execute-plan` – just invoke and let Superpowers handle TDD, commits, and review points automatically. Key insight: planning prevents dead ends. |
 | 5 | `05-research` | Research with AI | Optional | 15 | Compare three logging libraries for the project's language. Web search, decision matrix (simplicity, performance, community, configurability), recommendation. Key insight: Claude as research assistant saves hours. |
@@ -135,7 +151,7 @@ Every session README must follow this structure:
 
 ### Step 5: Generate LEARNING-PATH.md
 
-Create a `LEARNING-PATH.md` in the project root with:
+Create a `LEARNING-PATH.md` **at the workspace root** (next to the `sessions/` folder, NOT inside the project subdirectory) with:
 - Title "Discover AI with AI"
 - One sentence: What is this learning path?
 - Prerequisite: Claude Code must be installed (link: https://docs.anthropic.com/en/docs/claude-code/overview)
@@ -151,6 +167,10 @@ Generate in the user's chosen language.
 Say:
 
 "All set! I've generated a working project and your learning path. You can find it in `LEARNING-PATH.md`.
+
+**Verify the directory structure:**
+- `LEARNING-PATH.md` and `sessions/` should be at the workspace root (next to the project folder)
+- If they ended up inside the project folder, move them to the root first
 
 **Important: Start a fresh Claude Code session for each session.** This keeps Claude focused and you'll get the full experience.
 

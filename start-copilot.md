@@ -28,7 +28,22 @@ What programming language do you work with?
 
 ### Step 3: Generate the micro-project
 
-Create a minimal REST API project in the chosen language. The project must be **small but fully functional**.
+Create a minimal REST API project in the chosen language **inside a subdirectory** of the workspace root (e.g. `task-api/` for Java/TypeScript/Go, or `TaskApi/` for C#). The project must be **small but fully functional**.
+
+**⚠️ CRITICAL – Directory structure:**
+```
+workspace-root/          ← this is where the user opened VS Code
+├── task-api/            ← the generated project lives HERE (subdirectory)
+│   ├── src/ / handlers/ / ...
+│   └── ...
+├── sessions/            ← generated in Step 4, at the ROOT
+│   ├── 00-setup/
+│   └── ...
+├── LEARNING-PATH.md     ← generated in Step 5, at the ROOT
+└── .github/             ← created during sessions, at the ROOT
+    └── copilot-instructions.md
+```
+**Sessions, LEARNING-PATH.md, and .github/ must ALWAYS be at the workspace root – NEVER inside the project subdirectory.** After generating the project, always switch back to the workspace root for all subsequent steps.
 
 **The project contains:**
 - An entity `Task` with fields: `id` (auto-generated), `title` (String), `status` (Enum: OPEN, IN_PROGRESS, DONE)
@@ -54,15 +69,17 @@ For **TypeScript**:
 - `tsconfig.json` with strict mode
 
 **IMPORTANT:** After generating:
-1. Build the project (`mvn verify` / `dotnet build && dotnet test` / `npm install && npm test`)
+1. Build the project (`mvn verify` / `dotnet build && dotnet test` / `npm install && npm test`) – run the build command **inside the project subdirectory**
 2. If the build fails: analyze the error, fix it, build again
 3. Repeat until everything is green
 
 ### Step 4: Generate the sessions
 
-Generate a `README.md` for each session listed below under `sessions/<folder>/`. Use the session template and the session descriptions to create full, engaging session content. Generate all sessions in the user's chosen language. Use parallel tool calls or sub-agents to generate efficiently.
+Generate a `README.md` for each session listed below under `sessions/<folder>/` **at the workspace root** (NOT inside the project subdirectory). Use the session template and the session descriptions to create full, engaging session content. Generate all sessions in the user's chosen language. Use parallel tool calls or sub-agents to generate efficiently.
 
 Also generate the feedback interview prompt as `sessions/12-feedback/feedback-prompt.md` (see session 12 description).
+
+**⚠️ Verify:** The sessions directory must be a sibling of the project directory, not inside it. Example: if the project is at `task-api/`, sessions go to `sessions/` (not `task-api/sessions/`).
 
 #### Session template
 
@@ -128,9 +145,9 @@ Every session README must follow this structure:
 
 | # | Folder | Title | Type | ~Min | Description |
 |---|--------|-------|------|------|-------------|
-| 0 | `00-setup` | Setup | Core | 5 | Intro "What is Copilot Agent Mode?" – they know Copilot as autocomplete, but Agent Mode is an autonomous partner that reads files, writes code, runs terminal commands. **Verify Agent Mode:** open Copilot Chat (`Ctrl+Cmd+I` / `Ctrl+Alt+I`), check the mode dropdown shows **Agent**. Verify the generated project builds and tests pass. **Install Superpowers:** Open a terminal in the project directory, run `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash`, then VS Code Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → "Developer: Reload Window". Skills are now available as slash commands in Copilot Chat (e.g. `/brainstorm`, `/write-plan`, `/investigate`). |
+| 0 | `00-setup` | Setup | Core | 5 | Intro "What is Copilot Agent Mode?" – they know Copilot as autocomplete, but Agent Mode is an autonomous partner that reads files, writes code, runs terminal commands. **Verify Agent Mode:** open Copilot Chat (`Ctrl+Cmd+I` / `Ctrl+Alt+I`), check the mode dropdown shows **Agent**. Verify the generated project builds and tests pass. **Install Superpowers (user does this manually, NOT Copilot):** The user must run the install command **themselves** in a terminal. ⚠️ **The terminal must be in the workspace root directory** (where `.git/` lives, NOT inside the project subdirectory). **Windows users: open a Git Bash terminal** in VS Code (Terminal → New Terminal → select "Git Bash" from the dropdown, NOT PowerShell or CMD). macOS/Linux: any terminal works. The README must clearly tell the user to run the command themselves: `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash`. After installation: VS Code Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → "Developer: Reload Window". Skills are now available as slash commands in Copilot Chat (e.g. `/brainstorm`, `/write-plan`, `/investigate`). |
 | 1 | `01-let-ai-do-it` | Let AI Do It | Core | 10 | First real task: add a `priority` field (Enum: LOW, MEDIUM, HIGH) to the Task entity. The prompt should be natural and short – just say what you want, Copilot figures out the rest (endpoints, tests, build). User watches Copilot work across files. Key insight: describe WHAT, not HOW. |
-| 2 | `02-context-is-king` | Context is King | Core | 15 | Demo 1: Create `.github/copilot-instructions.md` – let Copilot derive project conventions from existing code. Explain this is Copilot's equivalent of a project context file that gets loaded automatically. Demo 2: Create `docs/concept-task-categories.md` – a concept doc for categorizing tasks (Bug, Feature, Documentation) with data model and API impact. Key insight: context files aren't just for code – also for notes, ideas, decisions. |
+| 2 | `02-context-is-king` | Context is King | Core | 15 | Demo 1: Create `.github/copilot-instructions.md` **at the workspace root** (NOT inside the project subdirectory – `.github/` must be a sibling of `sessions/` and the project folder) – let Copilot derive project conventions from existing code. Explain this is Copilot's equivalent of a project context file that gets loaded automatically. Demo 2: Create `docs/concept-task-categories.md` at the workspace root – a concept doc for categorizing tasks (Bug, Feature, Documentation) with data model and API impact. Key insight: context files aren't just for code – also for notes, ideas, decisions. |
 | 3 | `03-thinking-with-ai` | Thinking with AI | Core | 20 | Use `/brainstorm` to brainstorm a filtering and sorting feature (filter by status/priority, sort by fields). Copilot asks questions instead of jumping to code. Key insight: best code starts with good questions. |
 | 4 | `04-plan-and-execute` | Plan and Execute | Core | 25 | Demo 1: `/write-plan` – create implementation plan from brainstorming result. Review and adjust the plan. Demo 2: `/execute-plan` – just invoke and let Superpowers handle TDD, commits, and review points automatically. Key insight: planning prevents dead ends. |
 | 5 | `05-research` | Research with AI | Optional | 15 | Compare three logging libraries for the project's language. Web search, decision matrix (simplicity, performance, community, configurability), recommendation. Key insight: Copilot as research assistant saves hours. |
@@ -139,12 +156,12 @@ Every session README must follow this structure:
 | 8 | `08-documentation` | Documentation Without Pain | Optional | 15 | Generate a Confluence article (Wiki Markup) documenting the Task API from recent changes. Save as `docs/confluence-task-api.txt`. Also mention ADRs, release notes, OpenAPI as options. Key insight: describe WHAT to document, Copilot writes it. |
 | 9 | `09-logs-and-errors` | Logs & Error Analysis | Optional | 15 | Start the Task API, send requests, show logs, analyze patterns/warnings. Also works with stack traces, `docker logs`, `kubectl logs`. Key insight: stop Googling stack traces. |
 | 10 | `10-git-and-prs` | Git & PR Workflows | Optional | 15 | Analyze git diff/log, write commit messages, create PR descriptions with summary/changes/test plan. Key insight: Copilot writes better commit messages than most devs at 5 PM on a Friday. |
-| 11 | `11-real-project` | Into Your Real Project | Optional | 20 | No demo – checklist: open Copilot in real project. **Install Superpowers first:** `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash` + reload window. Then: create `.github/copilot-instructions.md`, create context files, brainstorm with `/brainstorm`, plan with `/write-plan`, execute with `/execute-plan`. Tip: create `.prompt.md` files under `.github/prompts/` for frequently used prompts – they become slash commands. Short prompts per step, no Superpowers internals. Transition from lab to daily work. |
+| 11 | `11-real-project` | Into Your Real Project | Optional | 20 | No demo – checklist: open Copilot in real project. **Install Superpowers first:** ⚠️ Make sure the terminal is in the **project root** (where `.git/` lives). **Windows: use Git Bash** (not PowerShell/CMD). Run `curl -fsSL https://raw.githubusercontent.com/earchibald/vsc-superpowers/main/install-superpowers.sh | bash` + reload window. Then: create `.github/copilot-instructions.md` in the project root, create context files, brainstorm with `/brainstorm`, plan with `/write-plan`, execute with `/execute-plan`. Tip: create `.prompt.md` files under `.github/prompts/` for frequently used prompts – they become slash commands. Short prompts per step, no Superpowers internals. Transition from lab to daily work. |
 | 12 | `12-feedback` | Feedback | Wrap-up | 10 | Points user to `feedback-prompt.md`. The prompt file instructs Copilot to conduct a structured interview (one question at a time): best moment, what didn't work, missing topics, difficulty level, daily use intention. After all answers: summarize as Markdown, save as `sessions/12-feedback/feedback.md`, ask for name/initials, create branch `feedback/<username>`, commit only feedback.md, push. |
 
 ### Step 5: Generate LEARNING-PATH.md
 
-Create a `LEARNING-PATH.md` in the project root with:
+Create a `LEARNING-PATH.md` **at the workspace root** (next to the `sessions/` folder, NOT inside the project subdirectory) with:
 - Title "Discover AI with AI (Copilot Edition)"
 - One sentence: What is this learning path?
 - Prerequisite: VS Code with GitHub Copilot (Agent Mode)
@@ -160,6 +177,10 @@ Generate in the user's chosen language.
 Say:
 
 "All set! I've generated a working project and adapted the learning path for Copilot. You can find it in `LEARNING-PATH.md`.
+
+**Verify the directory structure:**
+- `LEARNING-PATH.md` and `sessions/` should be at the workspace root (next to the project folder)
+- If they ended up inside the project folder, move them to the root first
 
 **Important: Start a fresh Copilot Chat for each session** (Cmd+Shift+P → 'Chat: Clear'). This keeps Copilot focused and you'll get the full experience.
 
