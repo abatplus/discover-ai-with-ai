@@ -14,7 +14,7 @@ This repo contains a prompt file that, when run with an AI coding agent, automat
 
 This learning path is available for two AI coding agents. Pick the one you have access to:
 
-### Option 1: Claude Code (recommended)
+### Option 1: <img src="https://img.shields.io/badge/Claude_Code-E86C2A?style=for-the-badge&logo=anthropic&logoColor=white" height="28" alt="Claude Code" align="absmiddle"> Claude Code (recommended)
 
 **Prerequisites:**
 1. **Claude Code** must be installed → [Installation Guide](https://docs.anthropic.com/en/docs/claude-code/overview)
@@ -32,7 +32,7 @@ Alternatively, open Claude Code in the VS Code sidebar and type: `Read start.md 
 
 > **Why terminal?** The terminal version of Claude Code always gets new features first — like voice input, background agents, and more. Use it inside VS Code's integrated terminal for the best of both worlds.
 
-### Option 2: GitHub Copilot (Agent Mode)
+### Option 2: <img src="https://img.shields.io/badge/GitHub_Copilot-000000?style=for-the-badge&logo=githubcopilot&logoColor=white" height="28" alt="GitHub Copilot" align="absmiddle"> GitHub Copilot (Agent Mode)
 
 **Prerequisites:**
 1. **Visual Studio Code** → [Download](https://code.visualstudio.com/)
