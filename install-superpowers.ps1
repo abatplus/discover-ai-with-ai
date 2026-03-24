@@ -167,7 +167,7 @@ if (-not (Test-Path $superpowersPath)) {
 }
 
 # --- 2. PREPARE THE KERNEL ---
-$KernelSource = Join-Path $InstallDir "skills" "using-superpowers" "SKILL.md"
+$KernelSource = Join-Path (Join-Path (Join-Path $InstallDir "skills") "using-superpowers") "SKILL.md"
 if (-not (Test-Path $KernelSource)) {
     Write-Host "ERROR: Could not find core skill at $KernelSource" -ForegroundColor Red
     exit 1
@@ -234,7 +234,7 @@ if (-not (Test-Path $PromptsDir)) { New-Item -ItemType Directory -Path $PromptsD
 Write-Host "[install] Installing skills as prompts..." -ForegroundColor Cyan
 
 foreach ($skill in $SkillsToInstall) {
-    $srcPath  = Join-Path $InstallDir "skills" $skill.Src "SKILL.md"
+    $srcPath  = Join-Path (Join-Path (Join-Path $InstallDir "skills") $skill.Src) "SKILL.md"
     $destPath = Join-Path $PromptsDir "$($skill.Cmd).prompt.md"
 
     if (Test-Path $srcPath) {
