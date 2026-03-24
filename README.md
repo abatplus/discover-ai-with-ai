@@ -35,7 +35,7 @@ Alternatively, open Claude Code in the VS Code sidebar and type: `Read start.md 
 ### Option 2: <img src="https://img.shields.io/badge/GitHub_Copilot-000000?style=for-the-badge&logo=githubcopilot&logoColor=white" height="28" alt="GitHub Copilot" align="absmiddle"> GitHub Copilot (Agent Mode)
 
 **Prerequisites:**
-1. **Visual Studio Code** → [Download](https://code.visualstudio.com/)
+1. **Visual Studio Code 1.109+** → [Download](https://code.visualstudio.com/) (Agent Skills require version 1.109 or later)
 2. **GitHub Copilot** subscription (Individual, Business, or Enterprise)
 
 **Getting Started:**
