@@ -12,8 +12,6 @@
 3. Make sure **Agent** mode is selected (dropdown at the top of the chat)
 4. Type: `Read start-copilot.md and follow the instructions`
 
-> **Note:** The learning path uses "Superpowers" — a set of Agent Skills that add structured workflows (brainstorming, planning, debugging) to Copilot. These skills will soon be available directly from the VS Code Marketplace. Until then, Setup (Session 0) walks you through a short manual installation.
-
 ---
 
 [← Back to overview](../README.md)
