@@ -12,38 +12,26 @@ This repo contains a prompt file that, when run with an AI coding agent, automat
 
 ## Choose Your Tool
 
-This learning path is available for two AI coding agents. Pick the one you have access to:
+Pick your AI coding agent and follow the getting-started guide:
 
-### Option 1: <img src="https://img.shields.io/badge/Claude_Code-E86C2A?style=for-the-badge&logo=anthropic&logoColor=white" height="28" alt="Claude Code" align="absmiddle"> Claude Code (recommended)
+<table>
+<tr>
+<td align="center" width="50%">
 
-**Prerequisites:**
-1. **Claude Code** must be installed → [Installation Guide](https://docs.anthropic.com/en/docs/claude-code/overview)
-2. **Visual Studio Code** (recommended) → [Download](https://code.visualstudio.com/)
+### [<img src="https://img.shields.io/badge/Claude_Code-E86C2A?style=for-the-badge&logo=anthropic&logoColor=white" height="36" alt="Claude Code">](docs/getting-started-claude-code.md)
 
-**Getting Started:**
+[→ Getting Started](docs/getting-started-claude-code.md)
 
-Open your terminal (we recommend VS Code's integrated terminal) and run:
+</td>
+<td align="center" width="50%">
 
-```bash
-cat start.md | claude
-```
+### [<img src="https://img.shields.io/badge/GitHub_Copilot-000000?style=for-the-badge&logo=githubcopilot&logoColor=white" height="36" alt="GitHub Copilot">](docs/getting-started-copilot.md)
 
-Alternatively, open Claude Code in the VS Code sidebar and type: `Read start.md and follow the instructions`
+[→ Getting Started](docs/getting-started-copilot.md)
 
-> **Why terminal?** The terminal version of Claude Code always gets new features first — like voice input, background agents, and more. Use it inside VS Code's integrated terminal for the best of both worlds.
-
-### Option 2: <img src="https://img.shields.io/badge/GitHub_Copilot-000000?style=for-the-badge&logo=githubcopilot&logoColor=white" height="28" alt="GitHub Copilot" align="absmiddle"> GitHub Copilot (Agent Mode)
-
-**Prerequisites:**
-1. **Visual Studio Code 1.109+** → [Download](https://code.visualstudio.com/) (Agent Skills require version 1.109 or later)
-2. **GitHub Copilot** subscription (Individual, Business, or Enterprise)
-
-**Getting Started:**
-
-1. Open this directory in VS Code
-2. Open Copilot Chat (`Ctrl+Cmd+I` / `Ctrl+Alt+I`)
-3. Make sure **Agent** mode is selected (dropdown at the top of the chat)
-4. Type: `Read start-copilot.md and follow the instructions`
+</td>
+</tr>
+</table>
 
 ## What You'll Learn
 
