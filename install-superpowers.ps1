@@ -6,7 +6,7 @@
 #
 # USAGE:
 #   Open PowerShell in your project root (where .git/ lives) and run:
-#   irm https://raw.githubusercontent.com/abatplus/discover-ai-with-ai/main/install-superpowers.ps1 | iex
+#   .\install-superpowers.ps1
 #
 #   Or locally:
 #   .\install-superpowers.ps1
