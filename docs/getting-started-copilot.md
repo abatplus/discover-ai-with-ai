@@ -7,7 +7,7 @@
 
 ## Start the Learning Path
 
-1. Open this directory in VS Code
+1. Clone this repository and open the folder in VS Code
 2. Open Copilot Chat (`Ctrl+Cmd+I` / `Ctrl+Alt+I`)
 3. Make sure **Agent** mode is selected (dropdown at the top of the chat)
 4. Type: `Read start-copilot.md and follow the instructions`

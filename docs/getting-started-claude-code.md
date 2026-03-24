@@ -7,13 +7,12 @@
 
 ## Start the Learning Path
 
-Open your terminal (we recommend VS Code's integrated terminal) and run:
-
-```bash
-cat start.md | claude
-```
-
-Alternatively, open Claude Code in the VS Code sidebar and type: `Read start.md and follow the instructions`
+1. Clone this repository and open the folder in your terminal (we recommend VS Code's integrated terminal)
+2. Run:
+   ```bash
+   cat start.md | claude
+   ```
+   Alternatively, open Claude Code in the VS Code sidebar and type: `Read start.md and follow the instructions`
 
 > **Why terminal?** The terminal version of Claude Code always gets new features first — like voice input, background agents, and more. Use it inside VS Code's integrated terminal for the best of both worlds.
 
